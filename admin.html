@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusConnect | Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+  <div class="toast-container" id="toastContainer"></div>
+  <header class="navbar admin-nav">
+    <a href="index.html" class="brand"><span class="brand-mark">CC</span><span>Campus<span>Connect</span></span></a>
+    <div class="admin-title"><span class="live-dot"></span> Admin Dashboard</div>
+    <a href="index.html" class="back-link">← Student View</a>
+  </header>
+
+  <main class="admin-layout">
+    <aside class="sidebar">
+      <div class="side-profile"><div class="avatar">AD</div><div><b>Club Admin</b><small>Administrator</small></div></div>
+      <button class="side-btn active" data-tab="overview">▦ <span>Overview</span></button>
+      <button class="side-btn" data-tab="events-admin">◈ <span>Manage Events</span></button>
+      <button class="side-btn" data-tab="registrations">♙ <span>Registrations</span></button>
+    </aside>
+
+    <section class="admin-content">
+      <div id="overviewTab" class="admin-tab">
+        <div class="admin-heading"><div><span class="section-kicker">CONTROL CENTER</span><h1>Good evening, Admin.</h1><p>Here's what's happening across your club.</p></div><button class="btn btn-primary" id="quickAdd">＋ Add Event</button></div>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-icon">◈</span><small>TOTAL EVENTS</small><strong id="statEvents">0</strong><em>All published events</em></div>
+          <div class="stat-card"><span class="stat-icon">♙</span><small>REGISTRATIONS</small><strong id="statRegistrations">0</strong><em>Student sign-ups</em></div>
+          <div class="stat-card"><span class="stat-icon">◷</span><small>UPCOMING</small><strong id="statUpcoming">0</strong><em>Future events</em></div>
+          <div class="stat-card"><span class="stat-icon">✦</span><small>CATEGORIES</small><strong id="statCategories">0</strong><em>Active categories</em></div>
+        </div>
+        <div class="admin-panel"><div class="panel-head"><div><h3>Recent Events</h3><p>Quick overview of your published events.</p></div><button class="text-btn" data-switch="events-admin">Manage all →</button></div><div class="table-wrap"><table><thead><tr><th>EVENT</th><th>DATE</th><th>CATEGORY</th><th>REGISTRATIONS</th></tr></thead><tbody id="recentEvents"></tbody></table></div></div>
+      </div>
+
+      <div id="events-adminTab" class="admin-tab hidden">
+        <div class="admin-heading"><div><span class="section-kicker">CONTENT MANAGEMENT</span><h1>Manage Events</h1><p>Create, update and remove campus events.</p></div><button class="btn btn-primary" id="addEventBtn">＋ Add Event</button></div>
+        <div class="admin-panel"><div class="panel-head"><div><h3>All Events</h3><p>Changes are saved automatically in your browser.</p></div></div><div class="table-wrap"><table><thead><tr><th>EVENT</th><th>DATE & TIME</th><th>VENUE</th><th>CATEGORY</th><th>ACTIONS</th></tr></thead><tbody id="adminEventsTable"></tbody></table></div></div>
+      </div>
+
+      <div id="registrationsTab" class="admin-tab hidden">
+        <div class="admin-heading"><div><span class="section-kicker">STUDENT DATA</span><h1>Registrations</h1><p>View and search students registered for events.</p></div></div>
+        <div class="admin-panel"><div class="filter-bar admin-filter"><div class="search-box"><span>⌕</span><input id="registrationSearch" placeholder="Search name, email or college..."></div><select id="registrationEventFilter"><option value="all">All Events</option></select></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>CONTACT</th><th>COLLEGE / YEAR</th><th>EVENT</th><th>REGISTERED</th></tr></thead><tbody id="registrationsTable"></tbody></table></div><div class="empty-state hidden" id="registrationEmpty"><div>♙</div><h3>No registrations found</h3><p>Try changing your filters.</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop hidden" id="eventModal">
+    <div class="modal admin-modal">
+      <button class="modal-close" id="closeEventModal">×</button>
+      <span class="section-kicker" id="eventModalKicker">NEW EVENT</span>
+      <h2 id="eventModalTitle">Add Event</h2>
+      <form id="eventForm">
+        <input type="hidden" id="editEventId">
+        <div class="form-grid">
+          <label class="full">Event Name<input id="eventName" required placeholder="e.g. CodeSprint 2026"></label>
+          <label>Category<select id="eventCategory" required><option>Technology</option><option>Cultural</option><option>Sports</option><option>Workshop</option><option>Social</option><option>Other</option></select></label>
+          <label>Date & Time<input id="eventDate" type="datetime-local" required></label>
+          <label>Venue<input id="eventVenue" required placeholder="e.g. Seminar Hall"></label>
+          <label>Short Tag<input id="eventTag" placeholder="e.g. 24-HOUR HACKATHON"></label>
+          <label class="full">Description<textarea id="eventDescription" required rows="4" placeholder="Tell students what this event is about..."></textarea></label>
+          <label class="checkbox-label full"><input type="checkbox" id="eventFeatured"> Mark as featured event</label>
+        </div>
+        <button class="btn btn-primary full-submit" type="submit">Save Event</button>
+      </form>
+    </div>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>
